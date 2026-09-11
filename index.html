@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weight Loss Command Center</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --accent: #38bdf8;
+      --accent-green: #34d399;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 24px; max-width: 1000px; margin: auto; }
+    h1, h2 { font-weight: 700; margin-bottom: 12px; }
+    header { border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-end; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 24px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .stat-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .stat-value { font-weight: bold; color: var(--accent); }
+    input[type="number"], input[type="date"] {
+      width: 100%; background: #0b0f19; border: 1px solid var(--border);
+      color: var(--text); padding: 8px 12px; border-radius: 6px; margin-top: 6px; margin-bottom: 14px;
+    }
+    button {
+      background: var(--accent); color: #0f172a; border: none; padding: 10px 16px;
+      font-weight: 600; border-radius: 6px; cursor: pointer; width: 100%; transition: opacity 0.2s;
+    }
+    button:hover { opacity: 0.9; }
+    ul { list-style: none; }
+    li { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    li:last-child { border-bottom: none; }
+    .video-link { color: var(--accent); text-decoration: none; font-size: 0.85rem; }
+    .video-link:hover { text-decoration: underline; }
+    .history-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.9rem; }
+    .history-table th, .history-table td { padding: 8px; text-align: left; border-bottom: 1px solid var(--border); }
+    .history-table th { color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <h1>Target: 67 kg Dashboard</h1>
+      <p style="color: var(--text-muted);">Current: 92 kg | Deficit Window: 6–8 Months</p>
+    </div>
+    <div style="text-align: right;">
+      <span style="font-size: 0.85rem; color: var(--text-muted);">Daily Calorie Cap</span>
+      <h2 style="color: var(--accent-green);">1,800 kcal</h2>
+    </div>
+  </header>
+
+  <!-- Metric Loggers -->
+  <div class="grid">
+    <!-- Daily Metrics Entry -->
+    <div class="card">
+      <h2>Log Today's Numbers</h2>
+      <label>Morning Weight (kg):</label>
+      <input type="number" step="0.1" id="in-weight" placeholder="e.g. 91.4" />
+
+      <label>Calories Eaten (kcal):</label>
+      <input type="number" id="in-calories" placeholder="Max 1850" />
+
+      <label>Protein Intake (g):</label>
+      <input type="number" id="in-protein" placeholder="Target 140g - 160g" />
+
+      <label>Steps / Watch Sync:</label>
+      <input type="number" id="in-steps" placeholder="Target 10,000+" />
+
+      <button onclick="saveDailyLog()">Save Daily Entry</button>
+    </div>
+
+    <!-- Targets Summary -->
+    <div class="card">
+      <h2>Daily Baseline Targets</h2>
+      <div class="stat-row">
+        <span>Water Intake</span>
+        <span class="stat-value">3.5 – 4.0 Liters</span>
+      </div>
+      <div class="stat-row">
+        <span>Target Deficit</span>
+        <span class="stat-value">~800 – 1,000 kcal</span>
+      </div>
+      <div class="stat-row">
+        <span>Walking Steps (NEAT)</span>
+        <span class="stat-value">10,000 / day</span>
+      </div>
+      <div class="stat-row">
+        <span>Cooking Oil Limit</span>
+        <span class="stat-value">≤ 1.5 tbsp / day</span>
+      </div>
+      <hr style="border: 0; border-top: 1px solid var(--border); margin: 16px 0;" />
+      <p style="font-size: 0.85rem; color: var(--text-muted);">
+        <strong>Weekly Loss Goal:</strong> 0.75 – 0.95 kg per week. Consistent compliance yields target weight within 28 weeks.
+      </p>
+    </div>
+  </div>
+
+  <!-- Form Library with Guided Video Demos -->
+  <div class="card" style="margin-bottom: 24px;">
+    <h2>Routine Form Library & Video Tutorials</h2>
+    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">Review technique to protect joints and ensure proper muscle loading without weights.</p>
+    <ul>
+      <li>
+        <span><strong>Bulgarian Split Squat</strong> (Workout B/D)</span>
+        <a class="video-link" href="https://www.youtube.com/results?search_query=how+to+do+bulgarian+split+squat+form" target="_blank">Watch Guide ↗</a>
+      </li>
+      <li>
+        <span><strong>Doorframe / Towel Incline Row</strong> (Workout A)</span>
+        <a class="video-link" href="https://www.youtube.com/results?search_query=doorframe+bodyweight+row+form" target="_blank">Watch Guide ↗</a>
+      </li>
+      <li>
+        <span><strong>Pike Push-Up</strong> (Workout C - Front Delts)</span>
+        <a class="video-link" href="https://www.youtube.com/results?search_query=pike+push+up+form+tutorial" target="_blank">Watch Guide ↗</a>
+      </li>
+      <li>
+        <span><strong>Backpack Romanian Deadlift</strong> (Workout D - Hamstrings)</span>
+        <a class="video-link" href="https://www.youtube.com/results?search_query=backpack+romanian+deadlift+form" target="_blank">Watch Guide ↗</a>
+      </li>
+      <li>
+        <span><strong>Chair Tricep Dips</strong> (Workout A)</span>
+        <a class="video-link" href="https://www.youtube.com/results?search_query=bench+chair+dips+proper+form" target="_blank">Watch Guide ↗</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Log History -->
+  <div class="card">
+    <h2>Recent Daily Log History</h2>
+    <table class="history-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Weight</th>
+          <th>Calories</th>
+          <th>Protein</th>
+          <th>Steps</th>
+        </tr>
+      </thead>
+      <tbody id="history-rows">
+        <!-- Injected via JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function getLogs() {
+      return JSON.parse(localStorage.getItem('cut_logs') || '[]');
+    }
+
+    function saveDailyLog() {
+      const weight = document.getElementById('in-weight').value;
+      const calories = document.getElementById('in-calories').value;
+      const protein = document.getElementById('in-protein').value;
+      const steps = document.getElementById('in-steps').value;
+
+      if (!weight && !calories && !protein && !steps) return alert('Enter at least one metric.');
+
+      const newEntry = {
+        date: new Date().toLocaleDateString(),
+        weight: weight || '--',
+        calories: calories || '--',
+        protein: protein || '--',
+        steps: steps || '--'
+      };
+
+      const logs = getLogs();
+      logs.unshift(newEntry);
+      localStorage.setItem('cut_logs', JSON.stringify(logs.slice(0, 30))); // Keep last 30 days
+      renderHistory();
+
+      // Clear inputs
+      document.getElementById('in-weight').value = '';
+      document.getElementById('in-calories').value = '';
+      document.getElementById('in-protein').value = '';
+      document.getElementById('in-steps').value = '';
+    }
+
+    function renderHistory() {
+      const logs = getLogs();
+      const tbody = document.getElementById('history-rows');
+      if (logs.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="color:var(--text-muted); text-align:center;">No entries yet.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = logs.map(l => `
+        <tr>
+          <td>${l.date}</td>
+          <td>${l.weight} kg</td>
+          <td>${l.calories} kcal</td>
+          <td>${l.protein} g</td>
+          <td>${l.steps}</td>
+        </tr>
+      `).join('');
+    }
+
+    // Initial load
+    renderHistory();
+  </script>
+</body>
+</html>
